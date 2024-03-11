@@ -1,0 +1,6 @@
+@autox_data_HostAddress = http://localhost:5287
+
+GET {{autox_data_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
