@@ -1,9 +1,6 @@
 using autox_data.Models;
 using autox_data.Utils;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Web.Http.Description;
 
 namespace autox_data.Controllers
 {
@@ -24,7 +21,6 @@ namespace autox_data.Controllers
         public async Task<ActionResult<Competitor>> GetByName(string name, string year)
         {
             Competitor comp = _scraper.GetCompetitor(name, year);
-            Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:4200");
             return Ok(comp);
         }
     }

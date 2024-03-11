@@ -1,5 +1,6 @@
 using autox_data.Models;
 using autox_data.Utils;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 
@@ -28,7 +29,6 @@ namespace autox_data.Controllers
                 years.Add(season.Year);
             }
             Response.StatusCode = 200;
-            Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:4200");
             return Ok(years);
         }
 
@@ -36,8 +36,6 @@ namespace autox_data.Controllers
         public async Task<ActionResult<Season>> GetSeasonInfo(string year)
         {
             Season season = _scraper.GetSeason(year);
-
-            Response.Headers.Append("Access-Control-Allow-Origin", "http://localhost:4200");
 
             if (season != null)
             {

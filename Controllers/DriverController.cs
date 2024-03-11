@@ -26,7 +26,6 @@ namespace autox_data.Controllers
         {
             Driver driver = _scraper.GetDriver(name);
             Response.StatusCode = 200;
-            Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:4200");
             return Ok(driver);
         }
     }
