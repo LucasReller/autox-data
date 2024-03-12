@@ -16,12 +16,19 @@ namespace autox_data.Controllers
             _logger = logger;
             _scraper = new WebScraper();
         }
+
         [HttpGet]
         [Route("{name}")]
         public async Task<ActionResult<Competitor>> GetByName(string name, string year)
         {
+            if (name == "undefined" || year == "undefined")
+                return BadRequest();
+
             Competitor comp = _scraper.GetCompetitor(name, year);
-            return Ok(comp);
+
+            if (comp != null)
+                return Ok(comp);
+            return NotFound();
         }
     }
 }

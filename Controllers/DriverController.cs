@@ -1,9 +1,6 @@
 using autox_data.Models;
 using autox_data.Utils;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Web.Http.Description;
 
 namespace autox_data.Controllers
 {
@@ -24,9 +21,14 @@ namespace autox_data.Controllers
         [Route("{name}")]
         public async Task<ActionResult<Driver>> GetByName(string name)
         {
+            if (name == "undefined")
+                return BadRequest();
+
             Driver driver = _scraper.GetDriver(name);
-            Response.StatusCode = 200;
-            return Ok(driver);
+
+            if (driver != null)
+                return Ok(driver);
+            return NotFound();
         }
     }
 }

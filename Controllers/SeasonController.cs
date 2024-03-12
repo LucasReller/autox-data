@@ -1,8 +1,7 @@
 using autox_data.Models;
 using autox_data.Utils;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
+using System.Xml.Linq;
 
 namespace autox_data.Controllers
 {
@@ -28,25 +27,21 @@ namespace autox_data.Controllers
             {
                 years.Add(season.Year);
             }
-            Response.StatusCode = 200;
             return Ok(years);
         }
 
         [HttpGet("{year}")]
         public async Task<ActionResult<Season>> GetSeasonInfo(string year)
         {
+            if (year == "undefined")
+                return BadRequest();
+
             Season season = _scraper.GetSeason(year);
 
             if (season != null)
-            {
-                Response.StatusCode = 200;
-                return season;
-            }
-            else
-            {
-                Response.StatusCode = 500;
-                return NotFound();
-            }
+                return Ok(season);
+            return NotFound();
+
         }
     }
 }
