@@ -34,7 +34,7 @@ namespace autox_data.Controllers
         public async Task<ActionResult<Season>> GetSeasonInfo(string year)
         {
             if (year == "undefined")
-                return BadRequest();
+                return BadRequest("No year parameter provided");
 
             Season season = _scraper.GetSeason(year);
 

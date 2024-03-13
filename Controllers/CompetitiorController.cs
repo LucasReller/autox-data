@@ -22,7 +22,7 @@ namespace autox_data.Controllers
         public async Task<ActionResult<Competitor>> GetByName(string name, string year)
         {
             if (name == "undefined" || year == "undefined")
-                return BadRequest();
+                return BadRequest("Name or year parameter missing");
 
             Competitor comp = _scraper.GetCompetitor(name, year);
 

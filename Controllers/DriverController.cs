@@ -22,7 +22,7 @@ namespace autox_data.Controllers
         public async Task<ActionResult<Driver>> GetByName(string name)
         {
             if (name == "undefined")
-                return BadRequest();
+                return BadRequest("No name parameter provided");
 
             Driver driver = _scraper.GetDriver(name);
 
