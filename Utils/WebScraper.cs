@@ -39,7 +39,7 @@ namespace autox_data.Utils
             return years;
         }
 
-        public Driver GetDriver(string name)
+        public Driver GetDriver(string name, bool onlyComplete)
         {
             Driver driver = new Driver();
 
@@ -48,7 +48,6 @@ namespace autox_data.Utils
             List<decimal> dotyPoints = new List<decimal>();
             List<decimal> eventPoints = new List<decimal>();
 
-            decimal tempPoints;
             int dotyPlacement;
 
             driver.Name = name;
@@ -60,14 +59,32 @@ namespace autox_data.Utils
                     dotyPlacement++;
                     if(competitor.Name == name)
                     {
-                        years.Add(season.Year);
-                        dotyFinish.Add(dotyPlacement);
-                        dotyPoints.Add(decimal.Parse(competitor.AvgPoints));
-
-                        foreach (decimal dEvent in competitor.EventPoints)
+                        if (onlyComplete)
                         {
-                            eventPoints.Add(dEvent);
+                            if (competitor.EventsCompleted >= season.ScoredEvents)
+                            {
+                                years.Add(season.Year);
+                                dotyFinish.Add(dotyPlacement);
+                                dotyPoints.Add(decimal.Parse(competitor.AvgPoints));
 
+                                foreach (decimal dEvent in competitor.EventPoints)
+                                {
+                                    eventPoints.Add(dEvent);
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            years.Add(season.Year);
+                            dotyFinish.Add(dotyPlacement);
+                            dotyPoints.Add(decimal.Parse(competitor.AvgPoints));
+
+                            foreach (decimal dEvent in competitor.EventPoints)
+                            {
+                                eventPoints.Add(dEvent);
+
+                            }
                         }
                     }
                 }

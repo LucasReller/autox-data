@@ -19,12 +19,12 @@ namespace autox_data.Controllers
 
         [HttpGet]
         [Route("{name}")]
-        public async Task<ActionResult<Driver>> GetByName(string name)
+        public async Task<ActionResult<Driver>> GetByName(string name, Boolean onlyComplete)
         {
             if (name == "undefined")
                 return BadRequest("No name parameter provided");
 
-            Driver driver = _scraper.GetDriver(name);
+            Driver driver = _scraper.GetDriver(name, onlyComplete);
 
             if (driver != null)
                 return Ok(driver);
